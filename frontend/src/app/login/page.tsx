@@ -32,16 +32,42 @@ export default function LoginPage() {
       const response = await authAPI.login(data.username, data.password);
       const { access_token } = response.data;
 
-      // Get user info
+      // Store token first with temporary user data
+      const tempUser = {
+        id: 0,
+        email: "",
+        username: data.username,
+        is_active: true,
+        created_at: new Date().toISOString(),
+      };
+      login(access_token, tempUser);
+      localStorage.setItem("access_token", access_token);
+
+      // Now get user info with the token
       const userResponse = await authAPI.getMe();
       const user = userResponse.data;
 
-      // Store in localStorage and state
-      localStorage.setItem("access_token", access_token);
-      login(access_token, user);
+      // Update user data in store
+      useAuthStore.getState().updateUser(user);
 
       // Clear any previous errors on success
       setError("");
+
+      console.log(
+        "Login successful, token stored in both Zustand and localStorage:",
+        access_token
+      );
+      console.log("User data:", user);
+
+      // Verify token is stored
+      const authState = useAuthStore.getState();
+      console.log("Auth state after login:", {
+        isAuthenticated: authState.isAuthenticated,
+        hasToken: !!authState.token,
+        tokenPreview: authState.token
+          ? authState.token.substring(0, 20) + "..."
+          : "none",
+      });
 
       // Redirect to dashboard
       router.push("/dashboard");

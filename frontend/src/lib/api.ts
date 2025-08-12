@@ -1,4 +1,9 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, {
+  AxiosResponse,
+  AxiosError,
+  InternalAxiosRequestConfig,
+} from "axios";
+import { useAuthStore } from "@/store/auth";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -11,10 +16,56 @@ export const api = axios.create({
 
 // Request interceptor to add auth token
 api.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
-    const token = localStorage.getItem("access_token");
+  (config: InternalAxiosRequestConfig) => {
+    // Try multiple sources for token
+    let token = null;
+
+    // 1. Try Zustand store
+    try {
+      const authState = useAuthStore.getState();
+      token = authState.token;
+      console.log(
+        "Token from Zustand store:",
+        token ? token.substring(0, 20) + "..." : "none"
+      );
+    } catch (error) {
+      console.log("Error getting token from Zustand:", error);
+    }
+
+    // 2. If no token from Zustand, try localStorage
+    if (!token) {
+      const storedAuth = localStorage.getItem("auth-storage");
+      if (storedAuth) {
+        try {
+          const parsed = JSON.parse(storedAuth);
+          token = parsed.state?.token;
+          console.log(
+            "Token from localStorage:",
+            token ? token.substring(0, 20) + "..." : "none"
+          );
+        } catch (error) {
+          console.log("Error parsing localStorage auth:", error);
+        }
+      }
+    }
+
+    // 3. Fallback to direct localStorage access
+    if (!token) {
+      token = localStorage.getItem("access_token");
+      console.log(
+        "Token from direct localStorage:",
+        token ? token.substring(0, 20) + "..." : "none"
+      );
+    }
+
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+      console.log(
+        "✅ Adding token to request:",
+        token.substring(0, 20) + "..."
+      );
+    } else {
+      console.log("❌ No token found in any source");
     }
     return config;
   },

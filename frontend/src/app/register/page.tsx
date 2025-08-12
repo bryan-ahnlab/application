@@ -49,8 +49,9 @@ export default function RegisterPage() {
       const loginResponse = await authAPI.login(data.username, data.password);
       const { access_token } = loginResponse.data;
 
-      localStorage.setItem("access_token", access_token);
+      // Store in both Zustand store and localStorage for redundancy
       login(access_token, response.data);
+      localStorage.setItem("access_token", access_token);
 
       // Clear any previous errors on success
       setError("");
