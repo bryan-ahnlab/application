@@ -36,9 +36,7 @@ class ItemCreate(BaseModel):
     description: Optional[str] = None
 
 
-# 임시 데이터 저장소 (실제로는 데이터베이스 사용)
-items_db = []
-item_id_counter = 1
+# 데이터베이스 사용 (SQLite)
 
 
 # 루트 엔드포인트
@@ -92,61 +90,79 @@ async def health_check():
 
 
 # 아이템 목록 조회
-@app.get("/api/items", response_model=List[Item])
+@app.get("/api/items/", response_model=List[Item])
 async def get_items():
-    return items_db
+    from app.database import SessionLocal
+    from app.crud import get_items as crud_get_items
+
+    db = SessionLocal()
+    try:
+        items = crud_get_items(db)
+        return items
+    finally:
+        db.close()
 
 
 # 아이템 생성
-@app.post("/api/items", response_model=Item)
+@app.post("/api/items/", response_model=Item)
 async def create_item(item: ItemCreate):
-    global item_id_counter
+    from app.database import SessionLocal
+    from app.crud import create_item as crud_create_item
 
-    new_item = Item(
-        id=item_id_counter,
-        title=item.title,
-        description=item.description,
-        created_at=datetime.now(),
-    )
-
-    items_db.append(new_item)
-    item_id_counter += 1
-
-    return new_item
+    db = SessionLocal()
+    try:
+        db_item = crud_create_item(db, item)
+        return db_item
+    finally:
+        db.close()
 
 
 # 아이템 조회
 @app.get("/api/items/{item_id}", response_model=Item)
 async def get_item(item_id: int):
-    for item in items_db:
-        if item.id == item_id:
-            return item
-    raise HTTPException(status_code=404, detail="Item not found")
+    from app.database import SessionLocal
+    from app.crud import get_item as crud_get_item
+
+    db = SessionLocal()
+    try:
+        db_item = crud_get_item(db, item_id)
+        if db_item is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        return db_item
+    finally:
+        db.close()
 
 
 # 아이템 수정
 @app.put("/api/items/{item_id}", response_model=Item)
 async def update_item(item_id: int, item_update: ItemCreate):
-    for i, item in enumerate(items_db):
-        if item.id == item_id:
-            items_db[i] = Item(
-                id=item_id,
-                title=item_update.title,
-                description=item_update.description,
-                created_at=item.created_at,
-            )
-            return items_db[i]
-    raise HTTPException(status_code=404, detail="Item not found")
+    from app.database import SessionLocal
+    from app.crud import update_item as crud_update_item
+
+    db = SessionLocal()
+    try:
+        db_item = crud_update_item(db, item_id, item_update)
+        if db_item is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        return db_item
+    finally:
+        db.close()
 
 
 # 아이템 삭제
 @app.delete("/api/items/{item_id}")
 async def delete_item(item_id: int):
-    for i, item in enumerate(items_db):
-        if item.id == item_id:
-            deleted_item = items_db.pop(i)
-            return {"message": f"Item {item_id} deleted successfully"}
-    raise HTTPException(status_code=404, detail="Item not found")
+    from app.database import SessionLocal
+    from app.crud import delete_item as crud_delete_item
+
+    db = SessionLocal()
+    try:
+        success = crud_delete_item(db, item_id)
+        if not success:
+            raise HTTPException(status_code=404, detail="Item not found")
+        return {"message": f"Item {item_id} deleted successfully"}
+    finally:
+        db.close()
 
 
 if __name__ == "__main__":
