@@ -1,0 +1,46 @@
+version: "1"
+
+# Moonrepo 설정
+projects:
+  frontend:
+    root: frontend
+    source: "src/**/*"
+    tasks:
+      dev:
+        command: "npm run dev"
+        deps: ["^build"]
+      build:
+        command: "npm run build"
+        deps: ["^build"]
+      lint:
+        command: "npm run lint"
+      test:
+        command: "npm run test"
+      clean:
+        command: "rm -rf .next out dist"
+        platform: "unix"
+
+  backend:
+    root: backend
+    source: "**/*.py"
+    tasks:
+      dev:
+        command: "uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+        deps: ["^build"]
+      build:
+        command: "pip install -r requirements.txt"
+        deps: ["^build"]
+      lint:
+        command: "flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics"
+      test:
+        command: "pytest"
+      clean:
+        command: 'find . -type f -name "*.pyc" -delete && find . -type d -name "__pycache__" -delete'
+        platform: "unix"
+
+# 공통 설정
+node:
+  version: "18.19.0"
+
+python:
+  version: "3.11"
