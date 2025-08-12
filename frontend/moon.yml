@@ -1,0 +1,53 @@
+# Frontend project configuration
+name: "frontend"
+type: "application"
+
+# Project dependencies
+dependencies:
+  - "backend"
+
+# Tasks
+tasks:
+  dev:
+    command: "npm run dev"
+    deps: ["^dev"]
+    env:
+      NODE_ENV: development
+    inputs:
+      - "src/**/*"
+      - "package.json"
+      - "next.config.ts"
+      - "tsconfig.json"
+    outputs:
+      - ".next/**/*"
+    platform: "node"
+
+  build:
+    command: "npm run build"
+    deps: ["^build"]
+    env:
+      NODE_ENV: production
+    inputs:
+      - "src/**/*"
+      - "package.json"
+      - "next.config.ts"
+      - "tsconfig.json"
+    outputs:
+      - ".next/**/*"
+      - "out/**/*"
+    platform: "node"
+
+  start:
+    command: "npm run start"
+    deps: ["build"]
+    env:
+      NODE_ENV: production
+    platform: "node"
+
+  lint:
+    command: "npm run lint"
+    inputs:
+      - "src/**/*"
+      - "package.json"
+      - "eslint.config.mjs"
+    platform: "node"

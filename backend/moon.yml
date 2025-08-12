@@ -1,0 +1,35 @@
+# Backend project configuration
+name: "backend"
+type: "application"
+
+# Tasks
+tasks:
+  dev:
+    command: "python main.py"
+    deps: ["^dev"]
+    env:
+      PYTHONPATH: "."
+    inputs:
+      - "**/*.py"
+      - "requirements.txt"
+    platform: "system"
+
+  install:
+    command: "pip install -r requirements.txt"
+    inputs:
+      - "requirements.txt"
+    platform: "system"
+
+  test:
+    command: "python -m pytest tests/"
+    deps: ["install"]
+    inputs:
+      - "**/*.py"
+      - "tests/**/*"
+    platform: "system"
+
+  lint:
+    command: "python -m flake8 ."
+    inputs:
+      - "**/*.py"
+    platform: "system"

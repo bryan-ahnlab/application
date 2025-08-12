@@ -1,0 +1,35 @@
+version: "1.0"
+
+# Moon configuration
+moon:
+  # Enable telemetry
+  telemetry: false
+
+# Node.js configuration
+node:
+  # Node.js version
+  version: "18.0.0"
+  # Package manager
+  packageManager: "npm"
+  # Add package manager to PATH
+  addToPath: true
+
+# TypeScript configuration
+typescript:
+  # TypeScript version
+  version: "5.0.0"
+  # Create missing tsconfig.json files
+  createMissingConfig: true
+  # Sync project references
+  syncProjectReferences: true
+
+# Workspace configuration
+workspace:
+  # Inherit env vars from host
+  inheritColorsForPipedOutput: true
+  # Log running commands
+  logRunningCommand: true
+  # Enable caching
+  cache: true
+  # Enable task caching
+  cacheLifetime: "7 days"
