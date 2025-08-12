@@ -1,16 +1,18 @@
 # Frontend project configuration
-name: "frontend"
+$schema: "https://moonrepo.dev/schemas/project.json"
+
+# Project metadata
+id: "frontend"
 type: "application"
 
 # Project dependencies
-dependencies:
-  - "backend"
+# dependsOn:
+#   - "backend"
 
 # Tasks
 tasks:
   dev:
     command: "npm run dev"
-    deps: ["^dev"]
     env:
       NODE_ENV: development
     inputs:
@@ -24,7 +26,6 @@ tasks:
 
   build:
     command: "npm run build"
-    deps: ["^build"]
     env:
       NODE_ENV: production
     inputs:
@@ -39,7 +40,6 @@ tasks:
 
   start:
     command: "npm run start"
-    deps: ["build"]
     env:
       NODE_ENV: production
     platform: "node"

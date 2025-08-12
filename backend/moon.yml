@@ -1,12 +1,14 @@
 # Backend project configuration
-name: "backend"
+$schema: "https://moonrepo.dev/schemas/project.json"
+
+# Project metadata
+id: "backend"
 type: "application"
 
 # Tasks
 tasks:
   dev:
     command: "python main.py"
-    deps: ["^dev"]
     env:
       PYTHONPATH: "."
     inputs:
@@ -22,7 +24,6 @@ tasks:
 
   test:
     command: "python -m pytest tests/"
-    deps: ["install"]
     inputs:
       - "**/*.py"
       - "tests/**/*"
@@ -30,6 +31,18 @@ tasks:
 
   lint:
     command: "python -m flake8 ."
+    inputs:
+      - "**/*.py"
+    platform: "system"
+
+  init-db:
+    command: "python init_db.py"
+    inputs:
+      - "**/*.py"
+    platform: "system"
+
+  view-db:
+    command: "python view_db.py"
     inputs:
       - "**/*.py"
     platform: "system"

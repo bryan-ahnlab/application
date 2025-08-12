@@ -47,6 +47,44 @@ async def root():
     return {"message": "Welcome to Application API", "version": "1.0.0"}
 
 
+# 데이터베이스 초기화 엔드포인트
+@app.post("/init-db")
+async def init_database():
+    from app.database import engine
+    from app.models import Base
+    from app.crud import create_item
+    from app.schemas import ItemCreate
+    from app.database import SessionLocal
+
+    # 데이터베이스 테이블 생성
+    Base.metadata.create_all(bind=engine)
+
+    # 샘플 데이터 생성
+    db = SessionLocal()
+    try:
+        sample_items = [
+            ItemCreate(
+                title="첫 번째 아이템", description="이것은 첫 번째 샘플 아이템입니다."
+            ),
+            ItemCreate(
+                title="두 번째 아이템", description="이것은 두 번째 샘플 아이템입니다."
+            ),
+            ItemCreate(
+                title="세 번째 아이템", description="이것은 세 번째 샘플 아이템입니다."
+            ),
+        ]
+
+        for item in sample_items:
+            create_item(db, item)
+
+        return {
+            "message": "데이터베이스가 초기화되었습니다.",
+            "items_created": len(sample_items),
+        }
+    finally:
+        db.close()
+
+
 # 헬스체크 엔드포인트
 @app.get("/health")
 async def health_check():
@@ -112,4 +150,4 @@ async def delete_item(item_id: int):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
