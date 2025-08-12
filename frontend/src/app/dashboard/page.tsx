@@ -27,7 +27,7 @@ export default function DashboardPage() {
           const response = await postsAPI.getByUser(user.id);
           setPosts(response.data);
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Failed to fetch user posts:", error);
       } finally {
         setLoading(false);
