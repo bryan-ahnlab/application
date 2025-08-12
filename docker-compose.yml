@@ -1,0 +1,78 @@
+# Docker Compose 설정
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: application_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: application_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Redis (캐싱 및 세션 저장용)
+  redis:
+    image: redis:7-alpine
+    container_name: application_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Backend API (FastAPI)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: application_backend
+    environment:
+      - DATABASE_URL=mysql+pymysql://app_user:app_password@mysql:3306/application_db
+      - REDIS_URL=redis://redis:6379
+      - DEBUG=True
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: application_frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    restart: unless-stopped
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge

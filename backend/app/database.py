@@ -7,14 +7,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 데이터베이스 URL (환경변수에서 가져오거나 기본값 사용)
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./app.db")
+DATABASE_URL = os.getenv(
+    "DATABASE_URL", "mysql+pymysql://app_user:app_password@mysql:3306/application_db"
+)
 
 # SQLAlchemy 엔진 생성
 engine = create_engine(
     DATABASE_URL,
-    connect_args=(
-        {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
-    ),
+    pool_pre_ping=True,
+    pool_recycle=300,
+    echo=True,  # SQL 쿼리 로깅 (개발용)
 )
 
 # 세션 팩토리 생성

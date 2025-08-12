@@ -32,20 +32,19 @@ application/
 ### Backend
 
 - **Framework**: FastAPI
-- **Language**: Python 3.8+
-- **Database**: SQLAlchemy (SQLite 기본)
+- **Language**: Python 3.11+
+- **Database**: SQLAlchemy (MySQL)
 - **Package Manager**: pip
+- **Container**: Docker
 
-## 시작하기
-
-### 1. Moon 설치
+### 2. Docker 환경 시작
 
 ```bash
-# Moon 설치 (macOS)
-curl -fsSL https://moonrepo.dev/install.sh | bash
+# Docker Compose로 모든 서비스 시작
+./start.sh
 
-# 또는 npm을 통해 설치
-npm install -g @moonrepo/cli
+# 또는 수동으로 실행
+docker-compose up -d
 ```
 
 ### 2. 의존성 설치
