@@ -9,7 +9,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="text-center py-16">
         <h1 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-6">
-          Welcome to Blog Platform
+          Welcome to Application
         </h1>
         <p className="text-base text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
           A modern platform for sharing your thoughts and connecting with others

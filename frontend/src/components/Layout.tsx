@@ -28,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
               href="/"
               className="text-xl font-bold text-black dark:text-white"
             >
-              Blog Platform
+              Application
             </Link>
 
             <div className="flex items-center space-x-6">
@@ -53,7 +53,7 @@ export default function Layout({ children }: LayoutProps) {
                   >
                     Create Post
                   </Link>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-6">
                     <span className="text-sm text-gray-600 dark:text-gray-300">
                       Welcome, {user?.username}
                     </span>
@@ -86,10 +86,10 @@ export default function Layout({ children }: LayoutProps) {
       <main className="container mx-auto px-4 py-8">{children}</main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-300 dark:border-gray-600 py-8 mt-16 bg-white dark:bg-black">
+      <footer className="border-t border-gray-300 dark:border-gray-600 py-8 bg-white dark:bg-black">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            &copy; 2024 Blog Platform. Built with NextJS, FastAPI, and MySQL.
+            &copy; Bryan. All rights reserved.
           </p>
         </div>
       </footer>

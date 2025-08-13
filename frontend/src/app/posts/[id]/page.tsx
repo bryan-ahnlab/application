@@ -5,6 +5,8 @@ import { postsAPI } from "@/lib/api";
 import { useAuthStore } from "@/store/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Post {
   id: number;
@@ -162,9 +164,93 @@ export default function PostPage({ params }: PostPageProps) {
       <div className="card">
         <div className="card-body">
           <div className="prose max-w-none">
-            <p className="text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                h1: ({ children }) => (
+                  <h1 className="text-3xl font-bold mb-4 text-black dark:text-white">
+                    {children}
+                  </h1>
+                ),
+                h2: ({ children }) => (
+                  <h2 className="text-2xl font-bold mb-3 text-black dark:text-white">
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children }) => (
+                  <h3 className="text-xl font-bold mb-2 text-black dark:text-white">
+                    {children}
+                  </h3>
+                ),
+                h4: ({ children }) => (
+                  <h4 className="text-lg font-bold mb-2 text-black dark:text-white">
+                    {children}
+                  </h4>
+                ),
+                p: ({ children }) => (
+                  <p className="mb-4 text-gray-800 dark:text-gray-200">
+                    {children}
+                  </p>
+                ),
+                ul: ({ children }) => (
+                  <ul className="list-disc list-inside mb-4 space-y-1 text-gray-800 dark:text-gray-200">
+                    {children}
+                  </ul>
+                ),
+                ol: ({ children }) => (
+                  <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-800 dark:text-gray-200">
+                    {children}
+                  </ol>
+                ),
+                li: ({ children }) => (
+                  <li className="text-gray-800 dark:text-gray-200">
+                    {children}
+                  </li>
+                ),
+                strong: ({ children }) => (
+                  <strong className="font-bold text-black dark:text-white">
+                    {children}
+                  </strong>
+                ),
+                em: ({ children }) => (
+                  <em className="italic text-gray-800 dark:text-gray-200">
+                    {children}
+                  </em>
+                ),
+                code: ({ children, className }) => {
+                  const isInline = !className;
+                  if (isInline) {
+                    return (
+                      <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono text-gray-800 dark:text-gray-200">
+                        {children}
+                      </code>
+                    );
+                  }
+                  return (
+                    <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4">
+                      <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
+                        {children}
+                      </code>
+                    </pre>
+                  );
+                },
+                blockquote: ({ children }) => (
+                  <blockquote className="border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400 mb-4">
+                    {children}
+                  </blockquote>
+                ),
+                a: ({ children, href }) => (
+                  <a
+                    href={href}
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
+                  >
+                    {children}
+                  </a>
+                ),
+              }}
+            >
               {post.content}
-            </p>
+            </ReactMarkdown>
           </div>
         </div>
       </div>

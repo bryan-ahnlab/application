@@ -3,9 +3,8 @@ import "./globals.css";
 import Layout from "@/components/Layout";
 
 export const metadata: Metadata = {
-  title: "Blog Platform",
-  description:
-    "A modern full-stack blog platform built with NextJS, FastAPI, and MySQL",
+  title: "Application",
+  description: "A modern full-stack application",
 };
 
 export default function RootLayout({
