@@ -7,49 +7,26 @@ interface FormFieldProps {
   placeholder?: string;
   error?: string;
   required?: boolean;
-  rows?: number;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-export const FormField: React.FC<FormFieldProps> = ({
+export function FormField({
   label,
   name,
   type = "text",
   placeholder,
   error,
-  required = false,
-  rows,
+  required,
   children,
-}) => {
+}: FormFieldProps) {
   return (
-    <div>
-      <label
-        htmlFor={name}
-        className="block text-sm font-medium text-gray-700 mb-2"
-      >
+    <div className="form-group">
+      <label htmlFor={name} className="form-label">
         {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      {children ||
-        (type === "textarea" ? (
-          <textarea
-            id={name}
-            name={name}
-            rows={rows || 4}
-            required={required}
-            className="form-control"
-            placeholder={placeholder}
-          />
-        ) : (
-          <input
-            id={name}
-            name={name}
-            type={type}
-            required={required}
-            className="form-control"
-            placeholder={placeholder}
-          />
-        ))}
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {children}
+      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
     </div>
   );
-};
+}

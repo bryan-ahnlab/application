@@ -11,13 +11,13 @@ export default function RegisterPage() {
   const password = watch("password");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-sm w-full space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900">
             Create your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600">
             Or{" "}
             <Link
               href="/login"
@@ -28,104 +28,106 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form onSubmit={onSubmit} className="mt-8 space-y-6">
-          <div className="space-y-4">
-            <FormField
-              label="Email address"
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              error={errors.email?.message}
-              required
-            >
-              <input
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address",
-                  },
-                })}
+        <div className="card">
+          <div className="card-body">
+            <form onSubmit={onSubmit} className="space-y-4">
+              <FormField
+                label="Email address"
+                name="email"
                 type="email"
-                className="form-control"
                 placeholder="Enter your email"
-              />
-            </FormField>
+                error={errors.email?.message}
+                required
+              >
+                <input
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                  type="email"
+                  className="form-control"
+                  placeholder="Enter your email"
+                />
+              </FormField>
 
-            <FormField
-              label="Username"
-              name="username"
-              placeholder="Choose a username"
-              error={errors.username?.message}
-              required
-            >
-              <input
-                {...register("username", {
-                  required: "Username is required",
-                  minLength: {
-                    value: 3,
-                    message: "Username must be at least 3 characters",
-                  },
-                })}
-                className="form-control"
+              <FormField
+                label="Username"
+                name="username"
                 placeholder="Choose a username"
-              />
-            </FormField>
+                error={errors.username?.message}
+                required
+              >
+                <input
+                  {...register("username", {
+                    required: "Username is required",
+                    minLength: {
+                      value: 3,
+                      message: "Username must be at least 3 characters",
+                    },
+                  })}
+                  className="form-control"
+                  placeholder="Choose a username"
+                />
+              </FormField>
 
-            <FormField
-              label="Password"
-              name="password"
-              type="password"
-              placeholder="Create a password"
-              error={errors.password?.message}
-              required
-            >
-              <input
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
+              <FormField
+                label="Password"
+                name="password"
                 type="password"
-                className="form-control"
                 placeholder="Create a password"
-              />
-            </FormField>
+                error={errors.password?.message}
+                required
+              >
+                <input
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  type="password"
+                  className="form-control"
+                  placeholder="Create a password"
+                />
+              </FormField>
 
-            <FormField
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              placeholder="Confirm your password"
-              error={errors.confirmPassword?.message}
-              required
-            >
-              <input
-                {...register("confirmPassword", {
-                  required: "Please confirm your password",
-                  validate: (value) =>
-                    value === password || "Passwords do not match",
-                })}
+              <FormField
+                label="Confirm Password"
+                name="confirmPassword"
                 type="password"
-                className="form-control"
                 placeholder="Confirm your password"
-              />
-            </FormField>
+                error={errors.confirmPassword?.message}
+                required
+              >
+                <input
+                  {...register("confirmPassword", {
+                    required: "Please confirm your password",
+                    validate: (value) =>
+                      value === password || "Passwords do not match",
+                  })}
+                  type="password"
+                  className="form-control"
+                  placeholder="Confirm your password"
+                />
+              </FormField>
+
+              <ErrorAlert error={error} />
+
+              <Button
+                type="submit"
+                disabled={isLoading}
+                size="lg"
+                className="w-full"
+              >
+                {isLoading ? "Creating account..." : "Create account"}
+              </Button>
+            </form>
           </div>
-
-          <ErrorAlert error={error} />
-
-          <Button
-            type="submit"
-            disabled={isLoading}
-            size="lg"
-            className="w-full"
-          >
-            {isLoading ? "Creating account..." : "Create account"}
-          </Button>
-        </form>
+        </div>
       </div>
     </div>
   );
