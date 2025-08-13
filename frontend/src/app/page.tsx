@@ -7,21 +7,13 @@ export default function HomePage() {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900"></div>
-
-      {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-      <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-
-      <div className="relative z-10 container mx-auto px-4 py-16">
-        <div className="text-center animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
             Welcome to Our Blog Platform
           </h1>
-          <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             A modern full-stack application built with NextJS, FastAPI, and
             MySQL. Share your thoughts, read amazing posts, and connect with
             others in our vibrant community.
@@ -30,24 +22,8 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             {isAuthenticated ? (
               <>
-                <Link
-                  href="/dashboard"
-                  className="btn btn-primary btn-lg group"
-                >
+                <Link href="/dashboard" className="btn btn-primary btn-lg">
                   <span>Go to Dashboard</span>
-                  <svg
-                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
                 </Link>
                 <Link href="/posts" className="btn btn-secondary btn-lg">
                   View Posts
@@ -55,21 +31,8 @@ export default function HomePage() {
               </>
             ) : (
               <>
-                <Link href="/login" className="btn btn-primary btn-lg group">
+                <Link href="/login" className="btn btn-primary btn-lg">
                   <span>Sign In</span>
-                  <svg
-                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                    />
-                  </svg>
                 </Link>
                 <Link href="/register" className="btn btn-secondary btn-lg">
                   Sign Up
@@ -79,13 +42,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div
-          className="grid md:grid-cols-3 gap-8 animate-fade-in"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <div className="card group hover:scale-105 transition-transform duration-300">
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="card">
             <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -109,9 +69,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="card group hover:scale-105 transition-transform duration-300">
+          <div className="card">
             <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -135,9 +95,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="card group hover:scale-105 transition-transform duration-300">
+          <div className="card">
             <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
