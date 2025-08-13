@@ -27,6 +27,8 @@ export default function PostsPage() {
         setPosts(response.data);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
+        // Handle error gracefully without breaking the UI
+        setPosts([]); // Set empty array to prevent UI errors
       } finally {
         setLoading(false);
       }

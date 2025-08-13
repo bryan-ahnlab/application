@@ -30,6 +30,8 @@ export default function DashboardPage() {
         setPosts(response.data);
       } catch (error: unknown) {
         console.error("Failed to fetch user posts:", error);
+        // Handle error gracefully without breaking the UI
+        setPosts([]); // Set empty array to prevent UI errors
       } finally {
         setLoading(false);
       }

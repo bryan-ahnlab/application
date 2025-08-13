@@ -38,8 +38,31 @@ export default function PostPage({ params }: PostPageProps) {
         const response = await postsAPI.getById(parseInt(id));
         setPost(response.data);
       } catch (err: unknown) {
-        const errorMessage =
-          err instanceof Error ? err.message : "Failed to load post";
+        // Better error handling
+        let errorMessage = "Failed to load post";
+        if (err && typeof err === "object" && "response" in err) {
+          const response = (err as any).response;
+          if (response?.data?.detail) {
+            if (typeof response.data.detail === "string") {
+              errorMessage = response.data.detail;
+            } else {
+              errorMessage = "Failed to load post data.";
+            }
+          } else if (response?.status === 404) {
+            errorMessage = "Post not found.";
+          } else if (response?.status === 401) {
+            errorMessage = "Authentication required. Please log in again.";
+          } else if (response?.status >= 500) {
+            errorMessage = "Server error. Please try again later.";
+          }
+        } else if (err instanceof Error) {
+          errorMessage = err.message;
+        } else if (typeof err === "string") {
+          errorMessage = err;
+        }
+
+        // Ensure errorMessage is always a string
+        errorMessage = String(errorMessage);
         setError(errorMessage);
       } finally {
         setLoading(false);
@@ -58,8 +81,33 @@ export default function PostPage({ params }: PostPageProps) {
       await postsAPI.delete(parseInt(id));
       router.push("/dashboard");
     } catch (err: unknown) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Failed to delete post";
+      // Better error handling
+      let errorMessage = "Failed to delete post";
+      if (err && typeof err === "object" && "response" in err) {
+        const response = (err as any).response;
+        if (response?.data?.detail) {
+          if (typeof response.data.detail === "string") {
+            errorMessage = response.data.detail;
+          } else {
+            errorMessage = "Failed to delete post.";
+          }
+        } else if (response?.status === 401) {
+          errorMessage = "Authentication required. Please log in again.";
+        } else if (response?.status === 403) {
+          errorMessage = "You don't have permission to delete this post.";
+        } else if (response?.status === 404) {
+          errorMessage = "Post not found.";
+        } else if (response?.status >= 500) {
+          errorMessage = "Server error. Please try again later.";
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === "string") {
+        errorMessage = err;
+      }
+
+      // Ensure errorMessage is always a string
+      errorMessage = String(errorMessage);
       setError(errorMessage);
     }
   };

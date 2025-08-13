@@ -35,6 +35,7 @@ export const usePosts = () => {
       setPosts(response.data);
     } catch (error: unknown) {
       console.error("Failed to fetch posts:", error);
+      // Handle error gracefully without breaking the UI
     } finally {
       setLoading(false);
     }
@@ -63,6 +64,7 @@ export const useUserPosts = (userId?: number) => {
       }
     } catch (error: unknown) {
       console.error("Failed to fetch user posts:", error);
+      // Handle error gracefully without breaking the UI
     } finally {
       setLoading(false);
     }
@@ -98,8 +100,55 @@ export const useCreatePost = () => {
       const response = await postsAPI.create(data);
       router.push(`/posts/${response.data.id}`);
     } catch (err: unknown) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Failed to create post";
+      // Better error handling
+      let errorMessage = "Failed to create post";
+      if (err && typeof err === "object" && "response" in err) {
+        const response = (err as any).response;
+        if (response?.data?.detail) {
+          if (Array.isArray(response.data.detail)) {
+            const validationErrors = response.data.detail
+              .map((error: any) => {
+                if (typeof error === "string") {
+                  return error;
+                } else if (
+                  error &&
+                  typeof error === "object" &&
+                  "msg" in error
+                ) {
+                  return error.msg;
+                } else if (
+                  error &&
+                  typeof error === "object" &&
+                  "message" in error
+                ) {
+                  return error.message;
+                }
+                return "Invalid field";
+              })
+              .join(", ");
+            errorMessage = `Validation error: ${validationErrors}`;
+          } else if (typeof response.data.detail === "string") {
+            errorMessage = response.data.detail;
+          } else {
+            errorMessage = "Invalid input data. Please check your information.";
+          }
+        } else if (response?.status === 401) {
+          errorMessage = "Authentication required. Please log in again.";
+        } else if (response?.status === 403) {
+          errorMessage = "You don't have permission to create posts.";
+        } else if (response?.status === 422) {
+          errorMessage = "Invalid input data. Please check your information.";
+        } else if (response?.status >= 500) {
+          errorMessage = "Server error. Please try again later.";
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === "string") {
+        errorMessage = err;
+      }
+
+      // Ensure errorMessage is always a string
+      errorMessage = String(errorMessage);
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -139,8 +188,31 @@ export const useEditPost = (postId: number) => {
         setValue("content", postData.content);
         setValue("is_published", postData.is_published);
       } catch (err: unknown) {
-        const errorMessage =
-          err instanceof Error ? err.message : "Failed to load post";
+        // Better error handling
+        let errorMessage = "Failed to load post";
+        if (err && typeof err === "object" && "response" in err) {
+          const response = (err as any).response;
+          if (response?.data?.detail) {
+            if (typeof response.data.detail === "string") {
+              errorMessage = response.data.detail;
+            } else {
+              errorMessage = "Failed to load post data.";
+            }
+          } else if (response?.status === 404) {
+            errorMessage = "Post not found.";
+          } else if (response?.status === 401) {
+            errorMessage = "Authentication required. Please log in again.";
+          } else if (response?.status >= 500) {
+            errorMessage = "Server error. Please try again later.";
+          }
+        } else if (err instanceof Error) {
+          errorMessage = err.message;
+        } else if (typeof err === "string") {
+          errorMessage = err;
+        }
+
+        // Ensure errorMessage is always a string
+        errorMessage = String(errorMessage);
         setError(errorMessage);
       }
     };
@@ -156,8 +228,57 @@ export const useEditPost = (postId: number) => {
       await postsAPI.update(postId, data);
       router.push(`/posts/${postId}`);
     } catch (err: unknown) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Failed to update post";
+      // Better error handling
+      let errorMessage = "Failed to update post";
+      if (err && typeof err === "object" && "response" in err) {
+        const response = (err as any).response;
+        if (response?.data?.detail) {
+          if (Array.isArray(response.data.detail)) {
+            const validationErrors = response.data.detail
+              .map((error: any) => {
+                if (typeof error === "string") {
+                  return error;
+                } else if (
+                  error &&
+                  typeof error === "object" &&
+                  "msg" in error
+                ) {
+                  return error.msg;
+                } else if (
+                  error &&
+                  typeof error === "object" &&
+                  "message" in error
+                ) {
+                  return error.message;
+                }
+                return "Invalid field";
+              })
+              .join(", ");
+            errorMessage = `Validation error: ${validationErrors}`;
+          } else if (typeof response.data.detail === "string") {
+            errorMessage = response.data.detail;
+          } else {
+            errorMessage = "Invalid input data. Please check your information.";
+          }
+        } else if (response?.status === 401) {
+          errorMessage = "Authentication required. Please log in again.";
+        } else if (response?.status === 403) {
+          errorMessage = "You don't have permission to update this post.";
+        } else if (response?.status === 404) {
+          errorMessage = "Post not found.";
+        } else if (response?.status === 422) {
+          errorMessage = "Invalid input data. Please check your information.";
+        } else if (response?.status >= 500) {
+          errorMessage = "Server error. Please try again later.";
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === "string") {
+        errorMessage = err;
+      }
+
+      // Ensure errorMessage is always a string
+      errorMessage = String(errorMessage);
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -189,6 +310,8 @@ export const useDeletePost = () => {
       router.push("/dashboard");
     } catch (err: unknown) {
       console.error("Failed to delete post:", err);
+      // Handle error gracefully - could show a toast notification here
+      alert("Failed to delete post. Please try again.");
     } finally {
       setIsLoading(false);
     }
