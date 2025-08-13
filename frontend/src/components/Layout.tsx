@@ -40,8 +40,8 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       {/* Navigation */}
-      <nav className="border-b border-gray-300 dark:border-gray-600 sticky top-0 z-50 bg-white dark:bg-black">
-        <div className="container mx-auto px-4">
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-300 dark:border-gray-600 dark:bg-black">
+        <div className="container px-4 mx-auto">
           <div className="flex justify-between items-center h-16">
             <Link
               href="/"
@@ -82,7 +82,7 @@ export default function Layout({ children }: LayoutProps) {
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white bg-transparent border-0 p-0 cursor-pointer outline-none focus:outline-none"
+                      className="p-0 text-gray-600 bg-transparent border-0 cursor-pointer outline-none dark:text-gray-300 hover:text-black dark:hover:text-white focus:outline-none"
                       style={{
                         background: "transparent",
                         border: "none",
@@ -121,7 +121,7 @@ export default function Layout({ children }: LayoutProps) {
                 <ThemeToggle />
                 <button
                   onClick={toggleMenu}
-                  className="p-2 text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white bg-transparent border-0 cursor-pointer outline-none focus:outline-none"
+                  className="p-2 text-gray-600 bg-transparent border-0 cursor-pointer outline-none dark:text-gray-300 hover:text-black dark:hover:text-white focus:outline-none"
                   style={{
                     background: "transparent",
                     border: "none",
@@ -157,10 +157,10 @@ export default function Layout({ children }: LayoutProps) {
 
           {/* Mobile Navigation Menu */}
           {isMobile && isMenuOpen && (
-            <div className="border-t border-gray-300 dark:border-gray-600 bg-white dark:bg-black">
+            <div className="bg-white border-t border-gray-300 dark:border-gray-600 dark:bg-black">
               <div className="px-4 py-2 space-y-2">
                 {isAuthenticated && (
-                  <div className="py-2 text-sm text-gray-600 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700">
+                  <div className="py-2 text-sm text-gray-600 border-b border-gray-200 dark:text-gray-300 dark:border-gray-700">
                     Welcome, {user?.username}.
                   </div>
                 )}
@@ -194,7 +194,7 @@ export default function Layout({ children }: LayoutProps) {
                         handleLogout();
                         setIsMenuOpen(false);
                       }}
-                      className="block w-full text-left py-2 text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white bg-transparent border-0 p-0 cursor-pointer outline-none focus:outline-none"
+                      className="block p-0 py-2 w-full text-left text-gray-600 bg-transparent border-0 cursor-pointer outline-none dark:text-gray-300 hover:text-black dark:hover:text-white focus:outline-none"
                       style={{
                         background: "transparent",
                         border: "none",
@@ -231,11 +231,11 @@ export default function Layout({ children }: LayoutProps) {
       </nav>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">{children}</main>
+      <main className="container px-4 py-8 mx-auto">{children}</main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-300 dark:border-gray-600 py-8 bg-white dark:bg-black">
-        <div className="container mx-auto px-4 text-center">
+      <footer className="py-8 bg-white border-t border-gray-300 dark:border-gray-600 dark:bg-black">
+        <div className="container px-4 mx-auto text-center">
           <p className="text-sm text-gray-600 dark:text-gray-300">
             &copy; Bryan. All rights reserved.
           </p>
