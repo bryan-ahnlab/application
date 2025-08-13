@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth";
 import { authAPI } from "@/lib/api";
+import { modal } from "@/store/modal";
 
 interface LoginFormData {
   username: string;

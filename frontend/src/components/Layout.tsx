@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import { useState, useEffect } from "react";
+import Modal from "./ui/Modal";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -240,6 +241,9 @@ export default function Layout({ children }: LayoutProps) {
           </p>
         </div>
       </footer>
+
+      {/* Global Modal */}
+      <Modal />
     </div>
   );
 }
