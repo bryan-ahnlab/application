@@ -57,7 +57,15 @@ export default function Layout({ children }: LayoutProps) {
                     <span className="text-sm text-gray-600 dark:text-gray-300">
                       Welcome, {user?.username}
                     </span>
-                    <button onClick={handleLogout} className="btn btn-sm">
+                    <button
+                      onClick={handleLogout}
+                      className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white bg-transparent border-0 p-0 cursor-pointer outline-none focus:outline-none"
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        padding: 0,
+                      }}
+                    >
                       Logout
                     </button>
                   </div>
@@ -70,7 +78,10 @@ export default function Layout({ children }: LayoutProps) {
                   >
                     Login
                   </Link>
-                  <Link href="/register" className="btn btn-primary btn-sm">
+                  <Link
+                    href="/register"
+                    className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  >
                     Sign Up
                   </Link>
                 </>
