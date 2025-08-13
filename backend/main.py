@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Request
+from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -13,6 +14,7 @@ from crud import (
     create_user,
     get_user,
     get_user_by_email,
+    get_user_by_username,
     get_posts,
     create_post,
     get_post,
@@ -44,6 +46,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Exception handler for validation errors
+@app.exception_handler(422)
+async def validation_exception_handler(request: Request, exc):
+    print(f"Validation error: {exc}")  # Debug log
+    return JSONResponse(
+        status_code=422,
+        content={"detail": str(exc)},
+    )
 
 
 @app.get("/")
@@ -78,9 +90,18 @@ async def login_for_access_token(
 # User endpoints
 @app.post("/users/", response_model=User)
 def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
+    print(f"Received user data: {user}")  # Debug log
+
+    # Check if email already exists
     db_user = get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
+
+    # Check if username already exists
+    db_user_by_username = get_user_by_username(db, username=user.username)
+    if db_user_by_username:
+        raise HTTPException(status_code=400, detail="Username already exists")
+
     return create_user(db=db, user=user)
 
 

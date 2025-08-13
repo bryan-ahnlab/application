@@ -84,17 +84,50 @@ export const useLogin = () => {
         if (err && typeof err === "object" && "response" in err) {
           const response = (err as any).response;
           if (response?.data?.detail) {
-            errorMessage = response.data.detail;
+            // Handle different types of detail
+            if (Array.isArray(response.data.detail)) {
+              const validationErrors = response.data.detail
+                .map((error: any) => {
+                  if (typeof error === "string") {
+                    return error;
+                  } else if (
+                    error &&
+                    typeof error === "object" &&
+                    "msg" in error
+                  ) {
+                    return error.msg;
+                  } else if (
+                    error &&
+                    typeof error === "object" &&
+                    "message" in error
+                  ) {
+                    return error.message;
+                  }
+                  return "Invalid field";
+                })
+                .join(", ");
+              errorMessage = `Validation error: ${validationErrors}`;
+            } else if (typeof response.data.detail === "string") {
+              errorMessage = response.data.detail;
+            } else {
+              errorMessage =
+                "Invalid input data. Please check your information.";
+            }
           } else if (response?.status === 401) {
             errorMessage = "Incorrect username or password";
           } else if (response?.status === 422) {
-            errorMessage = "Invalid input data";
+            errorMessage = "Invalid input data. Please check your information.";
           } else if (response?.status >= 500) {
             errorMessage = "Server error. Please try again later.";
           }
         } else if (err instanceof Error) {
           errorMessage = err.message;
+        } else if (typeof err === "string") {
+          errorMessage = err;
         }
+
+        // Ensure errorMessage is always a string
+        errorMessage = String(errorMessage);
 
         setError(errorMessage);
       } finally {
@@ -178,17 +211,51 @@ export const useRegister = () => {
         if (err && typeof err === "object" && "response" in err) {
           const response = (err as any).response;
           if (response?.data?.detail) {
-            errorMessage = response.data.detail;
+            // Handle different types of detail
+            if (Array.isArray(response.data.detail)) {
+              // Pydantic validation errors
+              const validationErrors = response.data.detail
+                .map((error: any) => {
+                  if (typeof error === "string") {
+                    return error;
+                  } else if (
+                    error &&
+                    typeof error === "object" &&
+                    "msg" in error
+                  ) {
+                    return error.msg;
+                  } else if (
+                    error &&
+                    typeof error === "object" &&
+                    "message" in error
+                  ) {
+                    return error.message;
+                  }
+                  return "Invalid field";
+                })
+                .join(", ");
+              errorMessage = `Validation error: ${validationErrors}`;
+            } else if (typeof response.data.detail === "string") {
+              errorMessage = response.data.detail;
+            } else {
+              errorMessage =
+                "Invalid input data. Please check your information.";
+            }
           } else if (response?.status === 400) {
             errorMessage = "Email or username already exists";
           } else if (response?.status === 422) {
-            errorMessage = "Invalid input data";
+            errorMessage = "Invalid input data. Please check your information.";
           } else if (response?.status >= 500) {
             errorMessage = "Server error. Please try again later.";
           }
         } else if (err instanceof Error) {
           errorMessage = err.message;
+        } else if (typeof err === "string") {
+          errorMessage = err;
         }
+
+        // Ensure errorMessage is always a string
+        errorMessage = String(errorMessage);
 
         setError(errorMessage);
       } finally {
