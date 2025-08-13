@@ -7,13 +7,13 @@ export default function HomePage() {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-black">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white">
             Welcome to Our Blog Platform
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             A modern full-stack application built with NextJS, FastAPI, and
             MySQL. Share your thoughts, read amazing posts, and connect with
             others in our vibrant community.
@@ -45,7 +45,7 @@ export default function HomePage() {
         <div className="grid md:grid-cols-3 gap-8">
           <div className="card">
             <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 border border-gray-400 flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -61,7 +61,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold mb-3">Create Posts</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                 Share your thoughts and ideas with the community. Create
                 engaging content that resonates with readers and builds
                 meaningful connections.
@@ -71,7 +71,7 @@ export default function HomePage() {
 
           <div className="card">
             <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 border border-gray-400 flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -87,7 +87,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold mb-3">Connect</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                 Follow other users, engage with their content, and build
                 meaningful connections in our supportive and inclusive
                 community.
@@ -97,7 +97,7 @@ export default function HomePage() {
 
           <div className="card">
             <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 border border-gray-400 flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -113,7 +113,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold mb-3">Discover</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                 Explore a wide variety of posts from different authors and
                 topics. Find content that interests you and discover new
                 perspectives.

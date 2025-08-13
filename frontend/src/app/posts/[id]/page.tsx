@@ -78,7 +78,9 @@ export default function PostPage({ params }: PostPageProps) {
     return (
       <div className="flex justify-center items-center min-h-64">
         <div className="spinner"></div>
-        <span className="ml-3 text-muted-foreground">Loading post...</span>
+        <span className="ml-3 text-gray-600 dark:text-gray-300">
+          Loading post...
+        </span>
       </div>
     );
   }
@@ -86,7 +88,7 @@ export default function PostPage({ params }: PostPageProps) {
   if (error || !post) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-red-400 to-red-500 rounded-full flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-4 bg-gray-600 border border-gray-400 flex items-center justify-center">
           <svg
             className="w-8 h-8 text-white"
             fill="none"
@@ -101,9 +103,11 @@ export default function PostPage({ params }: PostPageProps) {
             />
           </svg>
         </div>
-        <div className="text-lg text-muted-foreground mb-4">
-          {error || "Post not found"}
-        </div>
+        <h3 className="text-lg font-semibold mb-2">Post not found</h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          The post you&apos;re looking for doesn&apos;t exist or has been
+          removed.
+        </p>
         <Link href="/posts" className="btn btn-primary">
           Back to Posts
         </Link>
@@ -111,151 +115,68 @@ export default function PostPage({ params }: PostPageProps) {
     );
   }
 
-  const isAuthor = user?.id === post.author_id;
-  const isUpdated = post.updated_at !== post.created_at;
-
   return (
-    <div className="max-w-4xl mx-auto animate-fade-in">
-      <div className="card">
-        <div className="card-body">
-          {/* Header */}
-          <div className="flex justify-between items-start mb-6">
-            <div className="flex-1">
-              <h1 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                {post.title}
-              </h1>
-              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                <span className="flex items-center">
-                  <svg
-                    className="w-4 h-4 mr-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                  {formatDate(post.created_at)}
-                </span>
-                {isUpdated && (
-                  <span className="flex items-center">
-                    <svg
-                      className="w-4 h-4 mr-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                      />
-                    </svg>
-                    Updated {formatDate(post.updated_at)}
-                  </span>
-                )}
-                <span
-                  className={`badge ${
-                    post.is_published ? "badge-success" : "badge-warning"
-                  }`}
-                >
-                  {post.is_published ? "Published" : "Draft"}
-                </span>
-              </div>
+    <div className="max-w-4xl mx-auto">
+      {/* Header */}
+      <div className="mb-8">
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
+              {post.title}
+            </h1>
+            <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+              <span>Posted {formatDate(post.created_at)}</span>
+              {post.updated_at !== post.created_at && (
+                <span>Updated {formatDate(post.updated_at)}</span>
+              )}
+              <span
+                className={`badge ${
+                  post.is_published ? "bg-gray-600" : "bg-gray-400"
+                }`}
+              >
+                {post.is_published ? "Published" : "Draft"}
+              </span>
             </div>
-
-            {isAuthor && (
-              <div className="flex space-x-2 ml-4">
-                <Link
-                  href={`/posts/${post.id}/edit`}
-                  className="btn btn-primary btn-sm group"
-                >
-                  <svg
-                    className="w-4 h-4 group-hover:rotate-12 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                    />
-                  </svg>
-                  Edit
-                </Link>
-                <button
-                  onClick={handleDelete}
-                  className="btn btn-sm bg-gradient-to-r from-red-500 to-pink-500 text-white hover:from-red-600 hover:to-pink-600 group"
-                >
-                  <svg
-                    className="w-4 h-4 group-hover:scale-110 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                  Delete
-                </button>
-              </div>
-            )}
           </div>
 
-          {/* Content */}
-          <div className="prose max-w-none">
-            <div className="text-foreground leading-relaxed whitespace-pre-wrap text-base">
-              {post.content}
+          {user && user.id === post.author_id && (
+            <div className="flex gap-2 ml-4">
+              <Link
+                href={`/posts/${post.id}/edit`}
+                className="btn btn-primary btn-sm"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="btn btn-secondary btn-sm"
+              >
+                Delete
+              </button>
             </div>
+          )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="card">
+        <div className="card-body">
+          <div className="prose max-w-none">
+            <p className="text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
+              {post.content}
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <div className="mt-6 flex justify-between">
-        <Link href="/posts" className="btn btn-secondary group">
-          <svg
-            className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            />
-          </svg>
+      {/* Actions */}
+      <div className="mt-8 flex justify-between items-center">
+        <Link href="/posts" className="btn btn-secondary">
           Back to Posts
         </Link>
 
-        {isAuthor && (
-          <Link href="/dashboard" className="btn btn-primary group">
-            <svg
-              className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
-            </svg>
+        {user && (
+          <Link href="/dashboard" className="btn btn-primary">
             My Dashboard
           </Link>
         )}

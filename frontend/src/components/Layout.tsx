@@ -19,46 +19,55 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-white dark:bg-black">
       {/* Navigation */}
-      <nav className="glass sticky top-0 z-50 border-b border-white/20">
+      <nav className="border-b border-gray-300 dark:border-gray-600 sticky top-0 z-50 bg-white dark:bg-black">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link
               href="/"
-              className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:from-indigo-500 hover:to-purple-500 transition-all duration-300"
+              className="text-xl font-bold text-black dark:text-white"
             >
               Blog Platform
             </Link>
 
             <div className="flex items-center space-x-6">
-              <Link href="/posts" className="nav-link">
+              <Link
+                href="/posts"
+                className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+              >
                 Posts
               </Link>
 
               {isAuthenticated ? (
                 <>
-                  <Link href="/dashboard" className="nav-link">
+                  <Link
+                    href="/dashboard"
+                    className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  >
                     Dashboard
                   </Link>
-                  <Link href="/create-post" className="nav-link">
+                  <Link
+                    href="/create-post"
+                    className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  >
                     Create Post
                   </Link>
                   <div className="flex items-center space-x-3">
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">
                       Welcome, {user?.username}
                     </span>
-                    <button
-                      onClick={handleLogout}
-                      className="btn btn-sm bg-gradient-to-r from-red-500 to-pink-500 text-white hover:from-red-600 hover:to-pink-600"
-                    >
+                    <button onClick={handleLogout} className="btn btn-sm">
                       Logout
                     </button>
                   </div>
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="nav-link">
+                  <Link
+                    href="/login"
+                    className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  >
                     Login
                   </Link>
                   <Link href="/register" className="btn btn-primary btn-sm">
@@ -74,14 +83,12 @@ export default function Layout({ children }: LayoutProps) {
       </nav>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 animate-fade-in">
-        {children}
-      </main>
+      <main className="container mx-auto px-4 py-8">{children}</main>
 
       {/* Footer */}
-      <footer className="glass border-t border-white/20 py-8 mt-16">
+      <footer className="border-t border-gray-300 dark:border-gray-600 py-8 mt-16 bg-white dark:bg-black">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             &copy; 2024 Blog Platform. Built with NextJS, FastAPI, and MySQL.
           </p>
         </div>

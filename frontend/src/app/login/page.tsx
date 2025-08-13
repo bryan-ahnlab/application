@@ -12,13 +12,13 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      <div className="w-full max-w-md px-6 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
+      <div className="w-full max-w-md px-4 py-6">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2 text-slate-900 dark:text-white">
+          <h2 className="text-2xl font-bold mb-2 text-black dark:text-white">
             Welcome back
           </h2>
-          <p className="text-slate-600 dark:text-slate-300">
+          <p className="text-gray-600 dark:text-gray-300">
             Sign in to your account to continue
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function LoginPage() {
                 required
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 text-muted-foreground flex items-center justify-center">
+                  <div className="flex-shrink-0 w-6 h-6 text-gray-500 flex items-center justify-center">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -69,7 +69,7 @@ export default function LoginPage() {
                 required
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 text-muted-foreground flex items-center justify-center">
+                  <div className="flex-shrink-0 w-6 h-6 text-gray-500 flex items-center justify-center">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -97,7 +97,7 @@ export default function LoginPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500 hover:text-gray-700 flex items-center justify-center"
                     >
                       {showPassword ? (
                         <svg
@@ -145,7 +145,7 @@ export default function LoginPage() {
                 type="submit"
                 disabled={isLoading}
                 size="lg"
-                className="w-full group"
+                className="w-full"
               >
                 {isLoading ? (
                   <>
@@ -161,31 +161,31 @@ export default function LoginPage() {
         </div>
 
         <div className="text-center mt-6">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
-              className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+              className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
             >
               Create one here
             </Link>
           </p>
         </div>
 
-        <div className="mt-8 p-4 bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg">
-          <p className="text-xs text-slate-600 dark:text-slate-300 mb-2 font-medium">
+        <div className="mt-8 p-4 bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-600">
+          <p className="text-xs text-black dark:text-white mb-2 font-bold">
             Test Account:
           </p>
           <div className="space-y-1 text-xs">
-            <p className="text-slate-600 dark:text-slate-300">
+            <p className="text-black dark:text-white">
               Username:{" "}
-              <span className="font-mono text-slate-900 dark:text-white">
+              <span className="font-mono text-blue-600 dark:text-blue-400">
                 admin
               </span>
             </p>
-            <p className="text-slate-600 dark:text-slate-300">
+            <p className="text-black dark:text-white">
               Password:{" "}
-              <span className="font-mono text-slate-900 dark:text-white">
+              <span className="font-mono text-blue-600 dark:text-blue-400">
                 password123
               </span>
             </p>

@@ -11,13 +11,13 @@ export default function RegisterPage() {
   const password = watch("password");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      <div className="w-full max-w-md px-6 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
+      <div className="w-full max-w-md px-4 py-6">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2 text-slate-900 dark:text-white">
+          <h2 className="text-2xl font-bold mb-2 text-black dark:text-white">
             Join our community
           </h2>
-          <p className="text-slate-600 dark:text-slate-300">
+          <p className="text-gray-600 dark:text-gray-300">
             Create your account to get started
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function RegisterPage() {
                 required
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 text-muted-foreground flex items-center justify-center">
+                  <div className="flex-shrink-0 w-6 h-6 text-gray-500 flex items-center justify-center">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -73,7 +73,7 @@ export default function RegisterPage() {
                 required
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 text-muted-foreground flex items-center justify-center">
+                  <div className="flex-shrink-0 w-6 h-6 text-gray-500 flex items-center justify-center">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -112,7 +112,7 @@ export default function RegisterPage() {
                 required
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 text-muted-foreground flex items-center justify-center">
+                  <div className="flex-shrink-0 w-6 h-6 text-gray-500 flex items-center justify-center">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -152,7 +152,7 @@ export default function RegisterPage() {
                 required
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 text-muted-foreground flex items-center justify-center">
+                  <div className="flex-shrink-0 w-6 h-6 text-gray-500 flex items-center justify-center">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                 type="submit"
                 disabled={isLoading}
                 size="lg"
-                className="w-full group"
+                className="w-full"
               >
                 {isLoading ? (
                   <>
@@ -203,11 +203,11 @@ export default function RegisterPage() {
         </div>
 
         <div className="text-center mt-6">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+              className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
             >
               Sign in here
             </Link>

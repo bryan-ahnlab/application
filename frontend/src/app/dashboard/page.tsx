@@ -59,7 +59,9 @@ export default function DashboardPage() {
     return (
       <div className="flex justify-center items-center min-h-64">
         <div className="spinner"></div>
-        <span className="ml-3 text-muted-foreground">Loading...</span>
+        <span className="ml-3 text-gray-600 dark:text-gray-300">
+          Loading...
+        </span>
       </div>
     );
   }
@@ -68,20 +70,20 @@ export default function DashboardPage() {
   const draftCount = posts.filter((post) => !post.is_published).length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 animate-fade-in">
+    <div className="max-w-6xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold text-black dark:text-white">
             My Dashboard
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
             Manage your posts and track your blog performance
           </p>
         </div>
-        <Link href="/create-post" className="btn btn-primary btn-sm group">
+        <Link href="/create-post" className="btn btn-primary btn-sm">
           <svg
-            className="w-4 h-4 group-hover:rotate-90 transition-transform"
+            className="w-4 h-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -99,9 +101,9 @@ export default function DashboardPage() {
 
       {/* Stats Cards */}
       <div className="grid md:grid-cols-3 gap-4">
-        <div className="card group hover:scale-105 transition-transform duration-300">
+        <div className="card">
           <div className="card-body text-center p-4">
-            <div className="w-10 h-10 mx-auto mb-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 mx-auto mb-2 bg-gray-600 border border-gray-400 flex items-center justify-center">
               <svg
                 className="w-5 h-5 text-white"
                 fill="none"
@@ -116,16 +118,18 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xs font-medium text-muted-foreground mb-1">
+            <h3 className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
               Total Posts
             </h3>
-            <p className="text-2xl font-bold text-blue-600">{posts.length}</p>
+            <p className="text-2xl font-bold text-black dark:text-white">
+              {posts.length}
+            </p>
           </div>
         </div>
 
-        <div className="card group hover:scale-105 transition-transform duration-300">
+        <div className="card">
           <div className="card-body text-center p-4">
-            <div className="w-10 h-10 mx-auto mb-2 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 mx-auto mb-2 bg-gray-600 border border-gray-400 flex items-center justify-center">
               <svg
                 className="w-5 h-5 text-white"
                 fill="none"
@@ -140,18 +144,18 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xs font-medium text-muted-foreground mb-1">
+            <h3 className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
               Published
             </h3>
-            <p className="text-2xl font-bold text-green-600">
+            <p className="text-2xl font-bold text-black dark:text-white">
               {publishedCount}
             </p>
           </div>
         </div>
 
-        <div className="card group hover:scale-105 transition-transform duration-300">
+        <div className="card">
           <div className="card-body text-center p-4">
-            <div className="w-10 h-10 mx-auto mb-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 mx-auto mb-2 bg-gray-600 border border-gray-400 flex items-center justify-center">
               <svg
                 className="w-5 h-5 text-white"
                 fill="none"
@@ -166,10 +170,12 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xs font-medium text-muted-foreground mb-1">
+            <h3 className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
               Drafts
             </h3>
-            <p className="text-2xl font-bold text-yellow-600">{draftCount}</p>
+            <p className="text-2xl font-bold text-black dark:text-white">
+              {draftCount}
+            </p>
           </div>
         </div>
       </div>
@@ -179,7 +185,7 @@ export default function DashboardPage() {
         <div className="card-header">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold">Your Posts</h2>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-gray-600 dark:text-gray-300">
               {posts.length} posts
             </span>
           </div>
@@ -188,7 +194,7 @@ export default function DashboardPage() {
         <div className="card-body p-0">
           {posts.length === 0 ? (
             <div className="text-center py-12">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gray-600 border border-gray-400 flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -203,105 +209,56 @@ export default function DashboardPage() {
                   />
                 </svg>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                You haven&apos;t created any posts yet.
+              <h3 className="text-lg font-semibold mb-2">No posts yet</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Start writing your first blog post to share your thoughts with
+                the world.
               </p>
-              <Link href="/create-post" className="btn btn-primary btn-sm">
+              <Link href="/create-post" className="btn btn-primary">
                 Create Your First Post
               </Link>
             </div>
           ) : (
-            <div className="divide-y divide-border">
-              {posts.map((post, index) => (
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              {posts.map((post) => (
                 <div
                   key={post.id}
-                  className="group p-4 hover:bg-muted/50 transition-colors"
-                  style={{ animationDelay: `${index * 0.05}s` }}
+                  className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
-                  <div className="flex items-start space-x-4">
-                    {/* Post Status Indicator */}
-                    <div className="flex-shrink-0 mt-1">
-                      <div
-                        className={`w-3 h-3 rounded-full ${
-                          post.is_published ? "bg-green-500" : "bg-yellow-500"
-                        }`}
-                      ></div>
-                    </div>
-
-                    {/* Post Content */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-lg font-semibold text-black dark:text-white">
                           {post.title}
                         </h3>
                         <span
                           className={`badge ${
-                            post.is_published
-                              ? "badge-success"
-                              : "badge-warning"
-                          } ml-2 flex-shrink-0`}
+                            post.is_published ? "bg-gray-600" : "bg-gray-400"
+                          }`}
                         >
                           {post.is_published ? "Published" : "Draft"}
                         </span>
                       </div>
-
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-relaxed">
-                        {post.content.substring(0, 120)}...
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-2">
+                        {post.content}
                       </p>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                          <span className="flex items-center">
-                            <svg
-                              className="w-3 h-3 mr-1"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                            {formatDate(post.created_at)}
-                          </span>
-                          {post.updated_at !== post.created_at && (
-                            <span className="flex items-center">
-                              <svg
-                                className="w-3 h-3 mr-1"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                                />
-                              </svg>
-                              Updated {formatDate(post.updated_at)}
-                            </span>
-                          )}
-                        </div>
-
-                        <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Link
-                            href={`/posts/${post.id}/edit`}
-                            className="btn btn-ghost btn-sm text-xs"
-                          >
-                            Edit
-                          </Link>
-                          <Link
-                            href={`/posts/${post.id}`}
-                            className="btn btn-primary btn-sm text-xs"
-                          >
-                            View
-                          </Link>
-                        </div>
-                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Updated {formatDate(post.updated_at)}
+                      </p>
+                    </div>
+                    <div className="flex gap-2 ml-4">
+                      <Link
+                        href={`/posts/${post.id}`}
+                        className="btn btn-secondary btn-sm"
+                      >
+                        View
+                      </Link>
+                      <Link
+                        href={`/posts/${post.id}/edit`}
+                        className="btn btn-primary btn-sm"
+                      >
+                        Edit
+                      </Link>
                     </div>
                   </div>
                 </div>
