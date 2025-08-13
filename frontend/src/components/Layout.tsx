@@ -32,6 +32,12 @@ export default function Layout({ children }: LayoutProps) {
             </Link>
 
             <div className="flex items-center space-x-6">
+              {isAuthenticated && (
+                <span className="text-sm text-gray-600 dark:text-gray-300">
+                  Welcome, {user?.username}.
+                </span>
+              )}
+
               <Link
                 href="/posts"
                 className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
@@ -53,22 +59,19 @@ export default function Layout({ children }: LayoutProps) {
                   >
                     Create Post
                   </Link>
-                  <div className="flex items-center space-x-6">
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                      Welcome, {user?.username}
-                    </span>
-                    <button
-                      onClick={handleLogout}
-                      className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white bg-transparent border-0 p-0 cursor-pointer outline-none focus:outline-none"
-                      style={{
-                        background: "transparent",
-                        border: "none",
-                        padding: 0,
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white bg-transparent border-0 p-0 cursor-pointer outline-none focus:outline-none"
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      padding: 0,
+                      fontSize: "14px",
+                      lineHeight: "1.4",
+                    }}
+                  >
+                    Logout
+                  </button>
                 </>
               ) : (
                 <>
