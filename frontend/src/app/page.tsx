@@ -4,48 +4,36 @@ import Link from "next/link";
 import { useAuthStore } from "@/store/auth";
 
 export default function HomePage() {
-  const { isAuthenticated } = useAuthStore();
-
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-black">
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white">
-            Welcome to Our Blog Platform
-          </h1>
-          <p className="text-base text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            A modern full-stack application built with NextJS, FastAPI, and
-            MySQL. Share your thoughts, read amazing posts, and connect with
-            others in our vibrant community.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            {isAuthenticated ? (
-              <>
-                <Link href="/dashboard" className="btn btn-primary btn-lg">
-                  <span>Go to Dashboard</span>
-                </Link>
-                <Link href="/posts" className="btn btn-secondary btn-lg">
-                  View Posts
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href="/login" className="btn btn-primary btn-lg">
-                  <span>Sign In</span>
-                </Link>
-                <Link href="/register" className="btn btn-secondary btn-lg">
-                  Sign Up
-                </Link>
-              </>
-            )}
-          </div>
+    <div className="bg-white dark:bg-black">
+      {/* Hero Section */}
+      <div className="text-center py-16">
+        <h1 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-6">
+          Welcome to Blog Platform
+        </h1>
+        <p className="text-base text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          A modern platform for sharing your thoughts and connecting with others
+          through meaningful content.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/posts" className="btn btn-primary">
+            Browse Posts
+          </Link>
+          <Link href="/register" className="btn btn-secondary">
+            Get Started
+          </Link>
         </div>
+      </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="card">
-            <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 border border-gray-400 flex items-center justify-center">
+      {/* Features Section */}
+      <div className="py-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold text-center text-black dark:text-white mb-12">
+            Why Choose Our Platform?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gray-600 border border-gray-400 flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -60,18 +48,17 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Create Posts</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                Share your thoughts and ideas with the community. Create
-                engaging content that resonates with readers and builds
-                meaningful connections.
+              <h3 className="text-lg font-semibold mb-3 text-black dark:text-white">
+                Easy Writing
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Create and edit your posts with our intuitive editor designed
+                for writers.
               </p>
             </div>
-          </div>
 
-          <div className="card">
-            <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 border border-gray-400 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gray-600 border border-gray-400 flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -86,18 +73,16 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Connect</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                Follow other users, engage with their content, and build
-                meaningful connections in our supportive and inclusive
-                community.
+              <h3 className="text-lg font-semibold mb-3 text-black dark:text-white">
+                Community
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Connect with other writers and readers in our growing community.
               </p>
             </div>
-          </div>
 
-          <div className="card">
-            <div className="card-body text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 border border-gray-400 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gray-600 border border-gray-400 flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -108,18 +93,33 @@ export default function HomePage() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Discover</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                Explore a wide variety of posts from different authors and
-                topics. Find content that interests you and discover new
-                perspectives.
+              <h3 className="text-lg font-semibold mb-3 text-black dark:text-white">
+                Fast & Reliable
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Built with modern technology for speed and reliability.
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-6 text-black dark:text-white">
+            Ready to Start Writing?
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-8">
+            Join our community and start sharing your stories with the world.
+          </p>
+          <Link href="/register" className="btn btn-primary">
+            Create Your Account
+          </Link>
         </div>
       </div>
     </div>

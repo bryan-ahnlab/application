@@ -87,10 +87,10 @@ export default function PostPage({ params }: PostPageProps) {
 
   if (error || !post) {
     return (
-      <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 bg-gray-600 border border-gray-400 flex items-center justify-center">
+      <div className="text-center py-16">
+        <div className="w-20 h-20 mx-auto mb-6 bg-gray-600 border border-gray-400 flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-white"
+            className="w-10 h-10 text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -103,8 +103,8 @@ export default function PostPage({ params }: PostPageProps) {
             />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold mb-2">Post not found</h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">
+        <h3 className="text-lg font-semibold mb-3">Post not found</h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
           The post you&apos;re looking for doesn&apos;t exist or has been
           removed.
         </p>
@@ -118,13 +118,13 @@ export default function PostPage({ params }: PostPageProps) {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex justify-between items-start mb-4">
+      <div className="mb-12">
+        <div className="flex justify-between items-start mb-6">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
+            <h1 className="text-3xl font-bold text-black dark:text-white mb-4">
               {post.title}
             </h1>
-            <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
               <span>Posted {formatDate(post.created_at)}</span>
               {post.updated_at !== post.created_at && (
                 <span>Updated {formatDate(post.updated_at)}</span>
@@ -140,7 +140,7 @@ export default function PostPage({ params }: PostPageProps) {
           </div>
 
           {user && user.id === post.author_id && (
-            <div className="flex gap-2 ml-4">
+            <div className="flex gap-3 ml-8">
               <Link
                 href={`/posts/${post.id}/edit`}
                 className="btn btn-primary btn-sm"
@@ -170,7 +170,7 @@ export default function PostPage({ params }: PostPageProps) {
       </div>
 
       {/* Actions */}
-      <div className="mt-8 flex justify-between items-center">
+      <div className="mt-12 flex justify-between items-center">
         <Link href="/posts" className="btn btn-secondary">
           Back to Posts
         </Link>

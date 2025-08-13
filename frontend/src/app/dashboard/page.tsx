@@ -70,14 +70,14 @@ export default function DashboardPage() {
   const draftCount = posts.filter((post) => !post.is_published).length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-black dark:text-white">
             My Dashboard
           </h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
             Manage your posts and track your blog performance
           </p>
         </div>
@@ -100,12 +100,12 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-6">
         <div className="card">
-          <div className="card-body text-center p-4">
-            <div className="w-10 h-10 mx-auto mb-2 bg-gray-600 border border-gray-400 flex items-center justify-center">
+          <div className="card-body text-center p-6">
+            <div className="w-12 h-12 mx-auto mb-3 bg-gray-600 border border-gray-400 flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-white"
+                className="w-6 h-6 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -118,20 +118,20 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">
               Total Posts
             </h3>
-            <p className="text-2xl font-bold text-black dark:text-white">
+            <p className="text-3xl font-bold text-black dark:text-white">
               {posts.length}
             </p>
           </div>
         </div>
 
         <div className="card">
-          <div className="card-body text-center p-4">
-            <div className="w-10 h-10 mx-auto mb-2 bg-gray-600 border border-gray-400 flex items-center justify-center">
+          <div className="card-body text-center p-6">
+            <div className="w-12 h-12 mx-auto mb-3 bg-gray-600 border border-gray-400 flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-white"
+                className="w-6 h-6 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -144,20 +144,20 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">
               Published
             </h3>
-            <p className="text-2xl font-bold text-black dark:text-white">
+            <p className="text-3xl font-bold text-black dark:text-white">
               {publishedCount}
             </p>
           </div>
         </div>
 
         <div className="card">
-          <div className="card-body text-center p-4">
-            <div className="w-10 h-10 mx-auto mb-2 bg-gray-600 border border-gray-400 flex items-center justify-center">
+          <div className="card-body text-center p-6">
+            <div className="w-12 h-12 mx-auto mb-3 bg-gray-600 border border-gray-400 flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-white"
+                className="w-6 h-6 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -170,10 +170,10 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">
               Drafts
             </h3>
-            <p className="text-2xl font-bold text-black dark:text-white">
+            <p className="text-3xl font-bold text-black dark:text-white">
               {draftCount}
             </p>
           </div>
@@ -193,10 +193,10 @@ export default function DashboardPage() {
 
         <div className="card-body p-0">
           {posts.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gray-600 border border-gray-400 flex items-center justify-center">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gray-600 border border-gray-400 flex items-center justify-center">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-10 h-10 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -209,8 +209,8 @@ export default function DashboardPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2">No posts yet</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <h3 className="text-lg font-semibold mb-3">No posts yet</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Start writing your first blog post to share your thoughts with
                 the world.
               </p>
@@ -223,11 +223,11 @@ export default function DashboardPage() {
               {posts.map((post) => (
                 <div
                   key={post.id}
-                  className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800"
+                  className="p-6 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-3 mb-3">
                         <h3 className="text-lg font-semibold text-black dark:text-white">
                           {post.title}
                         </h3>
@@ -239,14 +239,14 @@ export default function DashboardPage() {
                           {post.is_published ? "Published" : "Draft"}
                         </span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-2">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">
                         {post.content}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
                         Updated {formatDate(post.updated_at)}
                       </p>
                     </div>
-                    <div className="flex gap-2 ml-4">
+                    <div className="flex gap-3 ml-6">
                       <Link
                         href={`/posts/${post.id}`}
                         className="btn btn-secondary btn-sm"

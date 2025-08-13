@@ -1,34 +1,35 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
 import { useLogin } from "@/hooks/useAuth";
 import { FormField } from "@/components/ui/FormField";
-import { ErrorAlert } from "@/components/ui/ErrorAlert";
 import { Button } from "@/components/ui/Button";
+import { ErrorAlert } from "@/components/ui/ErrorAlert";
 
 export default function LoginPage() {
   const { register, errors, isLoading, error, onSubmit } = useLogin();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
-      <div className="w-full max-w-md px-4 py-6">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black">
+      <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-2 text-black dark:text-white">
+          <h2 className="text-2xl font-bold text-black dark:text-white">
             Welcome back
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
             Sign in to your account to continue
           </p>
         </div>
 
         <div className="card">
           <div className="card-body">
-            <form onSubmit={onSubmit} className="space-y-6">
+            <form onSubmit={onSubmit}>
               <FormField
                 label="Username"
                 name="username"
+                type="text"
                 placeholder="Enter your username"
                 error={errors.username?.message}
                 required
@@ -91,13 +92,13 @@ export default function LoginPage() {
                       })}
                       name="password"
                       type={showPassword ? "text" : "password"}
-                      className="form-control pr-12"
+                      className="form-control pr-10"
                       placeholder="Enter your password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500 hover:text-gray-700 flex items-center justify-center"
+                      className="absolute right-2 top-0 bottom-0 flex items-center justify-center w-8 h-full text-gray-500 hover:text-gray-700"
                     >
                       {showPassword ? (
                         <svg
@@ -178,16 +179,10 @@ export default function LoginPage() {
           </p>
           <div className="space-y-1 text-xs">
             <p className="text-black dark:text-white">
-              Username:{" "}
-              <span className="font-mono text-blue-600 dark:text-blue-400">
-                admin
-              </span>
+              <span className="font-medium">Username:</span> admin
             </p>
             <p className="text-black dark:text-white">
-              Password:{" "}
-              <span className="font-mono text-blue-600 dark:text-blue-400">
-                password123
-              </span>
+              <span className="font-medium">Password:</span> admin123
             </p>
           </div>
         </div>

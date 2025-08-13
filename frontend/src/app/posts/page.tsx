@@ -66,13 +66,13 @@ export default function PostsPage() {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
+      <div className="mb-12">
+        <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-bold text-black dark:text-white">
               Community Posts
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
               Discover amazing content from our community
             </p>
           </div>
@@ -97,10 +97,10 @@ export default function PostsPage() {
         </div>
 
         {/* Stats */}
-        <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-300">
+        <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
           <span className="flex items-center">
             <svg
-              className="w-4 h-4 mr-1"
+              className="w-4 h-4 mr-2"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ export default function PostsPage() {
           </span>
           <span className="flex items-center">
             <svg
-              className="w-4 h-4 mr-1"
+              className="w-4 h-4 mr-2"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -135,10 +135,10 @@ export default function PostsPage() {
 
       {/* Posts Grid */}
       {posts.length === 0 ? (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gray-600 border border-gray-400 flex items-center justify-center">
+        <div className="text-center py-16">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gray-600 border border-gray-400 flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-white"
+              className="w-10 h-10 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -151,8 +151,8 @@ export default function PostsPage() {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold mb-2">No posts yet</h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <h3 className="text-lg font-semibold mb-3">No posts yet</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
             Be the first to share your thoughts with the community.
           </p>
           {user && (
@@ -162,35 +162,35 @@ export default function PostsPage() {
           )}
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
             <div key={post.id} className="card">
               <div className="card-body">
-                <div className="flex items-start justify-between mb-3">
+                <div className="flex items-start justify-between mb-4">
                   <h3 className="text-lg font-semibold text-black dark:text-white line-clamp-2">
                     {post.title}
                   </h3>
                   <span
                     className={`badge ${
                       post.is_published ? "bg-gray-600" : "bg-gray-400"
-                    } ml-2 flex-shrink-0`}
+                    } ml-3 flex-shrink-0`}
                   >
                     {post.is_published ? "Published" : "Draft"}
                   </span>
                 </div>
 
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 line-clamp-3">
                   {post.content}
                 </p>
 
-                <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
+                <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-6">
                   <span>Posted {formatDate(post.created_at)}</span>
                   {post.updated_at !== post.created_at && (
                     <span>Updated {formatDate(post.updated_at)}</span>
                   )}
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <Link
                     href={`/posts/${post.id}`}
                     className="btn btn-primary btn-sm flex-1"
