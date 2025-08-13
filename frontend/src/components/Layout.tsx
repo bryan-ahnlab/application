@@ -40,7 +40,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-300 dark:border-gray-600 dark:bg-black">
+      <nav className="relative sticky top-0 z-50 bg-white border-b border-gray-300 dark:border-gray-600 dark:bg-black">
         <div className="container px-4 mx-auto">
           <div className="flex justify-between items-center h-16">
             <Link
@@ -154,11 +154,13 @@ export default function Layout({ children }: LayoutProps) {
               </div>
             )}
           </div>
+        </div>
 
-          {/* Mobile Navigation Menu */}
-          {isMobile && isMenuOpen && (
-            <div className="bg-white border-t border-gray-300 dark:border-gray-600 dark:bg-black">
-              <div className="px-4 py-2 space-y-2">
+        {/* Mobile Navigation Menu */}
+        {isMobile && isMenuOpen && (
+          <div className="absolute top-full z-50 w-full bg-white border-t border-gray-300 shadow-lg dark:border-gray-600 dark:bg-black">
+            <div className="container px-4 mx-auto">
+              <div className="py-2 space-y-2">
                 {isAuthenticated && (
                   <div className="py-2 text-sm text-gray-600 border-b border-gray-200 dark:text-gray-300 dark:border-gray-700">
                     Welcome, {user?.username}.
@@ -226,8 +228,8 @@ export default function Layout({ children }: LayoutProps) {
                 )}
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </nav>
 
       {/* Main Content */}

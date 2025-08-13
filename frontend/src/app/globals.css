@@ -193,6 +193,7 @@ a {
 /* Container and spacing */
 .container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -901,6 +902,7 @@ a {
 /* Responsive utilities */
 @media (max-width: 640px) {
   .container {
+    width: 100%;
   }
 
   .text-2xl {
@@ -965,6 +967,7 @@ a {
 
 @media (max-width: 768px) {
   .container {
+    width: 100%;
   }
 
   .btn {
